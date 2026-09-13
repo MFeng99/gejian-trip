@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>戈见山 · 中秋小环线扎营</title>
+<style>
+  :root{
+    --bg:#0a0e14; --bg2:#0f1520; --card:#141b26; --card2:#1a2331;
+    --line:#243040; --line2:#2f3d50;
+    --txt:#e8eef6; --txt2:#9fb0c4; --txt3:#6b7d92;
+    --cyan:#3ddad7; --blue:#58a6ff; --amber:#ffb454; --red:#ff6b6b; --green:#56d364;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--txt);
+    font-family:"PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+    font-size:15px;line-height:1.75;-webkit-font-smoothing:antialiased;}
+
+  header{position:relative;overflow:hidden;padding:52px 26px 40px;
+    background:
+      radial-gradient(900px 340px at 12% -10%, rgba(61,218,215,.20), transparent 62%),
+      radial-gradient(760px 320px at 88% 0%, rgba(88,166,255,.16), transparent 60%),
+      linear-gradient(180deg,#0d1420 0%,#0a0e14 100%);
+    border-bottom:1px solid var(--line);}
+  header:after{content:"";position:absolute;inset:0;pointer-events:none;
+    background-image:radial-gradient(rgba(255,255,255,.5) 1px, transparent 1px);
+    background-size:52px 52px;opacity:.05;}
+  .moon{position:absolute;right:46px;top:40px;width:78px;height:78px;border-radius:50%;
+    background:radial-gradient(circle at 34% 32%, #fff8e7, #f3d9a4 58%, #c9a86a 100%);
+    box-shadow:0 0 46px rgba(255,214,140,.45), 0 0 110px rgba(255,200,110,.20);}
+  .wrap{max-width:920px;margin:0 auto;position:relative;z-index:2;}
+  h1{margin:0 0 8px;font-size:31px;letter-spacing:1px;font-weight:700;}
+  h1 span{color:var(--cyan);}
+  .sub{color:var(--txt2);font-size:14.5px;}
+  .badges{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px;}
+  .badge{background:rgba(61,218,215,.10);border:1px solid rgba(61,218,215,.34);
+    color:var(--cyan);padding:4px 12px;border-radius:20px;font-size:12.5px;}
+  .badge.b{background:rgba(88,166,255,.10);border-color:rgba(88,166,255,.34);color:var(--blue);}
+  .badge.a{background:rgba(255,180,84,.10);border-color:rgba(255,180,84,.34);color:var(--amber);}
+  .badge.r{background:rgba(255,107,107,.10);border-color:rgba(255,107,107,.34);color:var(--red);}
+
+  section{padding:34px 26px 8px;}
+  h2{font-size:20px;margin:0 0 6px;display:flex;align-items:center;gap:10px;}
+  h2:before{content:"";width:4px;height:19px;background:var(--cyan);border-radius:2px;}
+  h2 small{color:var(--txt3);font-size:13px;font-weight:400;}
+  h3{font-size:16px;color:var(--amber);margin:26px 0 10px;}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:14px 0;}
+  .note{background:linear-gradient(90deg,rgba(255,180,84,.10),rgba(255,180,84,.03));
+    border-left:3px solid var(--amber);border-radius:0 10px 10px 0;padding:13px 16px;margin:14px 0;font-size:14px;}
+  .warn{background:linear-gradient(90deg,rgba(255,107,107,.10),rgba(255,107,107,.03));
+    border-left:3px solid var(--red);border-radius:0 10px 10px 0;padding:13px 16px;margin:14px 0;font-size:14px;}
+  .ok{background:linear-gradient(90deg,rgba(86,211,100,.10),rgba(86,211,100,.03));
+    border-left:3px solid var(--green);border-radius:0 10px 10px 0;padding:13px 16px;margin:14px 0;font-size:14px;}
+
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px;}
+  th{background:var(--card2);color:var(--cyan);text-align:left;padding:9px 11px;font-weight:600;
+    border:1px solid var(--line);}
+  td{padding:9px 11px;border:1px solid var(--line);vertical-align:top;}
+  tr:nth-child(even) td{background:rgba(255,255,255,.016);}
+
+  .tl{position:relative;margin:22px 0 10px;padding-left:34px;}
+  .tl:before{content:"";position:absolute;left:11px;top:6px;bottom:6px;width:2px;
+    background:linear-gradient(180deg,var(--cyan),var(--blue),var(--amber));opacity:.5;}
+  .tl-day{position:relative;margin:30px 0 14px;}
+  .tl-day:before{content:"";position:absolute;left:-30px;top:8px;width:14px;height:14px;border-radius:50%;
+    background:var(--amber);box-shadow:0 0 0 4px rgba(255,180,84,.16);}
+  .tl-day b{font-size:17px;color:var(--amber);letter-spacing:.5px;}
+  .tl-day span{color:var(--txt3);font-size:13px;margin-left:8px;}
+  .item{position:relative;margin:0 0 12px;background:var(--card);border:1px solid var(--line);
+    border-radius:10px;padding:12px 15px;}
+  .item:before{content:"";position:absolute;left:-27px;top:17px;width:9px;height:9px;border-radius:50%;
+    background:var(--bg);border:2px solid var(--cyan);}
+  .item.key:before{background:var(--cyan);box-shadow:0 0 0 4px rgba(61,218,215,.18);}
+  .item.hard{border-color:rgba(255,107,107,.4);}
+  .item.hard:before{background:var(--red);border-color:var(--red);box-shadow:0 0 0 4px rgba(255,107,107,.16);}
+  .t{font-family:ui-monospace,Menlo,Consolas,monospace;color:var(--cyan);font-size:13.5px;
+    font-weight:600;letter-spacing:.5px;margin-right:10px;}
+  .item.hard .t{color:var(--red);}
+  .d{color:var(--txt);}
+  .m{color:var(--txt3);font-size:13px;margin-top:3px;}
+  .tag{display:inline-block;font-size:11.5px;padding:1px 8px;border-radius:4px;margin-left:8px;
+    background:rgba(255,180,84,.14);color:var(--amber);vertical-align:1px;}
+  .tag.r{background:rgba(255,107,107,.14);color:var(--red);}
+  .tag.g{background:rgba(86,211,100,.14);color:var(--green);}
+
+  .mapbox{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin:14px 0;}
+  .mapbox svg{width:100%;height:auto;display:block;}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:10px;font-size:12.5px;color:var(--txt2);}
+  .legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:-1px;}
+
+  ul.clean{padding-left:19px;margin:8px 0;}
+  ul.clean li{margin:5px 0;}
+  ol.check{padding-left:20px;}
+  ol.check li{margin:6px 0;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0;}
+  .kpi div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px;text-align:center;}
+  .kpi b{display:block;font-size:20px;color:var(--cyan);}
+  .kpi span{font-size:12px;color:var(--txt3);}
+  .price{color:var(--amber);font-weight:600;}
+  footer{margin:34px 26px 44px;padding:15px 18px;background:var(--card);border:1px dashed var(--line2);
+    border-radius:10px;font-size:13px;color:var(--txt3);}
+  @media (max-width:660px){
+    header{padding:38px 16px 30px;} .moon{width:52px;height:52px;right:18px;top:26px;}
+    h1{font-size:24px;} section{padding:26px 16px 6px;} footer{margin:26px 16px 34px;}
+    .kpi{grid-template-columns:1fr 1fr;} .grid2{grid-template-columns:1fr;}
+    table{font-size:13px;} th,td{padding:7px 8px;}
+    .tl{padding-left:26px;} .item:before{left:-25px;} .tl-day:before{left:-26px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="moon"></div>
+  <div class="wrap">
+    <h1>戈见山 · 中秋<span>小环线扎营</span></h1>
+    <div class="sub">广西河池大化县雅龙乡戈见村 · 七百弄国家地质公园外围 · 八月十五，峰丛之上过中秋</div>
+    <div class="badges">
+      <span class="badge a">9/25–26 · 中秋正日满月</span>
+      <span class="badge">培贤出发 155km / 2h15</span>
+      <span class="badge b">小环线 6km · 爬升 480m</span>
+      <span class="badge">0 门票 · 免费停车</span>
+      <span class="badge b">山上扎营 · 补给点取水</span>
+      <span class="badge r">唯一司机 · 注意疲劳</span>
+      <span class="badge a">高速不免费</span>
+    </div>
+  </div>
+</header>
+
+<section>
+  <h2>关键数据 <small>2–4 人 · 一车自驾</small></h2>
+  <div class="kpi">
+    <div><b>155<span style="font-size:13px">km</span></b><span>单程车程 2h15</span></div>
+    <div><b>6<span style="font-size:13px">km</span></b><span>小环线里程</span></div>
+    <div><b>480<span style="font-size:13px">m</span></b><span>累计爬升</span></div>
+    <div><b>¥0</b><span>门票 · 停车</span></div>
+  </div>
+  <div class="ok"><b>中秋放假核实</b>：9/25（周五）— 9/27（周日）放假 3 天，<b>不调休</b>；<b>高速不免费</b>（免费仅限春节/清明/劳动/国庆四个法定假日）。过路费照收，已计入预算。</div>
+  <div class="warn"><b>三个必须提前知道的风险</b>：① 中秋戈见山大概率爆满（南宁户外团天天发），营地可能被占——<b>村口扎营留作 B 计划</b>；② 你是唯一司机，D2 要开约 4–4.5h（含山路）；③ <b>睡袋缺失</b>（防潮垫买帐篷时已带），需借或买，下面给了四个解法。</div>
+</section>
+
+<section>
+  <h2>装备缺口 <small>只剩睡袋，出发前解决</small></h2>
+  <div class="note">帐篷、防潮垫、登山杖、头灯 <b>✓ 全部已有</b>——你唯一缺的是<b>睡袋</b>。9 月山上夜间 19–22℃、山脊风大，睡袋决定这一晚的体感。</div>
+  <table>
+    <tr><th style="width:20%">解法</th><th style="width:16%">成本</th><th>说明</th></tr>
+    <tr><td><b>① 借</b>（首选）</td><td class="price">¥0</td><td>问学校户外类社团 / 同学 / 平果本地户外群，睡袋是常见装备，大概率借得到</td></tr>
+    <tr><td><b>② 买</b></td><td class="price">¥60–120</td><td>信封式睡袋（舒适温标 10–20℃）即可；属长期资产，以后徒步还能用</td></tr>
+    <tr><td><b>③ 家里凑</b></td><td class="price">¥0</td><td>厚被子 / 毛毯（防潮垫已有）。缺点：体积大、防潮差，下雨就废</td></tr>
+    <tr><td><b>④ 改住民宿</b></td><td class="price">¥100–159/间</td><td>七百弄民宿（人均 25–80），有床有被子。但<b>看不到山上月出</b>，且距戈见山 1–1.5h 山路</td></tr>
+  </table>
+  <div class="note"><b>策略：先借不买。</b>天气决策截止 9/24 晚——如果最终走 B 计划（民宿），睡袋就不用准备了；确认走 A 计划（山上扎营）再去借/买。别为可能用不上的东西先花钱。</div>
+</section>
+
+<section>
+  <h2>小环线路线图 <small>顺时针对照</small></h2>
+
+  <div class="mapbox">
+    <svg viewBox="0 0 680 330" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#3ddad7"/><stop offset="100%" stop-color="#58a6ff"/>
+        </linearGradient>
+      </defs>
+      <g opacity=".16" fill="none" stroke="#58a6ff" stroke-width="1.2">
+        <path d="M40 250 L78 196 L110 250"/><path d="M96 250 L134 182 L172 250"/>
+        <path d="M156 250 L196 200 L232 250"/><path d="M470 250 L508 190 L546 250"/>
+        <path d="M520 250 L560 176 L600 250"/><path d="M580 250 L620 200 L654 250"/>
+        <path d="M230 92 L262 44 L294 92"/><path d="M286 92 L322 34 L358 92"/>
+        <path d="M348 92 L384 48 L418 92"/>
+      </g>
+      <path d="M120 258 C 92 214, 108 158, 168 132 C 232 104, 300 92, 366 104
+               C 432 116, 476 150, 494 196 C 512 242, 470 276, 404 282
+               C 330 288, 214 288, 120 258 Z"
+            fill="rgba(61,218,215,.05)" stroke="url(#g1)" stroke-width="3" stroke-linejoin="round"/>
+      <g fill="#3ddad7">
+        <polygon points="172,118 186,124 172,130"/>
+        <polygon points="380,96 394,102 380,108"/>
+        <polygon points="506,208 494,214 502,222"/>
+        <polygon points="286,286 274,280 284,272"/>
+      </g>
+      <g font-size="12.5" font-family="sans-serif">
+        <circle cx="120" cy="258" r="7" fill="#0a0e14" stroke="#ffb454" stroke-width="3"/>
+        <text x="120" y="286" fill="#ffb454" text-anchor="middle" font-weight="600">① 戈见村（起点/停车）</text>
+        <text x="120" y="301" fill="#6b7d92" text-anchor="middle" font-size="11">小卖部 · 免费停车 · 0km</text>
+
+        <circle cx="182" cy="140" r="7" fill="#0a0e14" stroke="#3ddad7" stroke-width="3"/>
+        <text x="182" y="122" fill="#e8eef6" text-anchor="middle" font-weight="600">② 龙头石</text>
+        <text x="182" y="107" fill="#6b7d92" text-anchor="middle" font-size="11">上山 30min · 1km</text>
+
+        <circle cx="352" cy="102" r="7" fill="#0a0e14" stroke="#3ddad7" stroke-width="3"/>
+        <text x="352" y="84" fill="#e8eef6" text-anchor="middle" font-weight="600">③ 高山草甸垭口</text>
+        <text x="352" y="69" fill="#6b7d92" text-anchor="middle" font-size="11">牧羊古道 · 2.5km</text>
+
+        <circle cx="492" cy="200" r="8" fill="#0a0e14" stroke="#3ddad7" stroke-width="3"/>
+        <text x="556" y="196" fill="#e8eef6" font-weight="600">④ 山羊溶洞 / 弄中孤村</text>
+        <text x="556" y="211" fill="#6b7d92" font-size="11">3km</text>
+
+        <circle cx="470" cy="278" r="10" fill="#ffb454" stroke="#ffb454" stroke-width="3"/>
+        <text x="470" y="308" fill="#ffb454" text-anchor="middle" font-weight="700">⑤ 补给点 · 营地 ⛺</text>
+        <text x="470" y="323" fill="#6b7d92" text-anchor="middle" font-size="11">弄底上方 · 有水有简餐 · 3.5km</text>
+
+        <circle cx="300" cy="284" r="7" fill="#0a0e14" stroke="#58a6ff" stroke-width="3"/>
+        <text x="272" y="252" fill="#e8eef6" text-anchor="middle" font-weight="600">⑥ U型月亮谷</text>
+        <text x="272" y="267" fill="#6b7d92" text-anchor="middle" font-size="11">封神机位 · 4.5km</text>
+      </g>
+      <text x="620" y="40" fill="#6b7d92" font-size="11" font-family="sans-serif" text-anchor="end">俯视示意 · 非等比</text>
+    </svg>
+    <div class="legend">
+      <span><i style="background:#ffb454"></i>起点 / 营地</span>
+      <span><i style="background:#3ddad7"></i>途经打卡点</span>
+      <span><i style="background:#58a6ff"></i>核心机位</span>
+      <span><i style="background:#243040"></i>喀斯特峰丛</span>
+    </div>
+  </div>
+
+  <h3>海拔剖面 · 高差示意（相对起点）</h3>
+  <div class="mapbox">
+    <svg viewBox="0 0 680 210" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="ga" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="rgba(61,218,215,.34)"/><stop offset="100%" stop-color="rgba(61,218,215,0)"/>
+        </linearGradient>
+      </defs>
+      <g stroke="#243040" stroke-width="1">
+        <line x1="60" y1="170" x2="650" y2="170"/>
+        <line x1="60" y1="130" x2="650" y2="130" stroke-dasharray="3 4"/>
+        <line x1="60" y1="90" x2="650" y2="90" stroke-dasharray="3 4"/>
+        <line x1="60" y1="50" x2="650" y2="50" stroke-dasharray="3 4"/>
+      </g>
+      <g font-size="10.5" fill="#6b7d92" font-family="sans-serif">
+        <text x="52" y="174" text-anchor="end">0m</text>
+        <text x="52" y="134" text-anchor="end">+100</text>
+        <text x="52" y="94" text-anchor="end">+200</text>
+        <text x="52" y="54" text-anchor="end">+300</text>
+      </g>
+      <path d="M60 170 L152 110 L300 74 L360 66 L438 130 L520 58 L596 150 L650 170 Z" fill="url(#ga)"/>
+      <path d="M60 170 L152 110 L300 74 L360 66 L438 130 L520 58 L596 150 L650 170"
+            fill="none" stroke="#3ddad7" stroke-width="2.6" stroke-linejoin="round"/>
+      <g font-size="12.5" font-family="sans-serif">
+        <circle cx="60" cy="170" r="4.5" fill="#ffb454"/>
+        <text x="60" y="192" fill="#ffb454" text-anchor="middle">0km 村口</text>
+        <circle cx="152" cy="110" r="4" fill="#3ddad7"/>
+        <text x="152" y="99" fill="#e8eef6" text-anchor="middle">龙头石 1km</text>
+        <circle cx="360" cy="66" r="4" fill="#3ddad7"/>
+        <text x="360" y="55" fill="#e8eef6" text-anchor="middle">垭口 2.5km</text>
+        <circle cx="438" cy="130" r="6" fill="#ffb454"/>
+        <text x="438" y="152" fill="#ffb454" text-anchor="middle" font-weight="700">营地 3.5km ⛺</text>
+        <circle cx="520" cy="58" r="4" fill="#58a6ff"/>
+        <text x="520" y="47" fill="#58a6ff" text-anchor="middle">月亮谷 4.5km</text>
+        <circle cx="650" cy="170" r="4.5" fill="#ffb454"/>
+        <text x="646" y="192" fill="#ffb454" text-anchor="middle">回村 6km</text>
+      </g>
+      <text x="650" y="206" fill="#6b7d92" font-size="10.5" font-family="sans-serif" text-anchor="end">累计爬升约 480m · 陡坡下撤段 3–3.5km（配钢丝绳）</text>
+    </svg>
+    <div class="legend">
+      <span><i style="background:#3ddad7"></i>爬升段</span>
+      <span><i style="background:#ffb454"></i>营地 / 起终点</span>
+      <span><i style="background:#58a6ff"></i>最高观景点</span>
+    </div>
+  </div>
+  <div class="warn"><b>3–3.5km 那段陡坡下撤是全程最难</b>：泥土碎石路面、部分坡面配辅助钢丝绳。半蹲姿态下行、禁止奔跑、抓稳再踩。你带了登山杖，这段能省不少膝盖。</div>
+</section>
+
+<section>
+  <h2>天气决策 · 三套预案 <small>扎营只是 A 计划，不是必选项</small></h2>
+  <div class="note"><b>原则：扎营的唯一理由是"夜里那一场"（满月 + 星空 + 清晨云海）。看不到这些，帐篷就只剩湿、冷、重——那就别遭这个罪。</b></div>
+
+  <table>
+    <tr><th style="width:26%">9/24 看到的大化预报</th><th style="width:16%">决策</th><th style="width:16%">过夜</th><th>说明</th></tr>
+    <tr><td>☀️ 晴 / 少云</td><td style="color:var(--green)"><b>A：山上扎营</b></td><td>帐篷 ¥0</td><td>满月 + 星空 + 日出云海全都要，重装上山</td></tr>
+    <tr><td>⛅ 多云（高云 / 有间隙）</td><td style="color:var(--amber)"><b>A 或 B，到村口看天定</b></td><td>帐篷 / 民宿</td><td>云高时月光能透出来；低厚云就别硬撑，装备带上去、看天再决定</td></tr>
+    <tr><td>☁️ 阴天无雨</td><td style="color:var(--blue)"><b>B：民宿 / 县城酒店</b></td><td>¥100–159/间</td><td>徒步照走，晚上有床有热水，人均 25–80</td></tr>
+    <tr><td>🌧 雨 / 雷阵雨 / 前一日刚下过大雨</td><td style="color:var(--red)"><b>C：改期或取消</b></td><td>—</td><td><b>不是"舒不舒服"，是"去不去"</b>：陡坡湿滑 + 山脊雷击</td></tr>
+  </table>
+
+  <div class="warn"><b>下雨的真正问题不是看不到星星</b>：① 3–3.5km 陡坡是泥土路，湿滑是这条线事故主因；② 山脊无遮蔽，雷击风险；③ 帐篷在雨里 = 失温 + 装备全湿。雨天不是"降级方案"的问题，是<b>行程本身该不该走</b>的问题。</div>
+
+  <h3>你有两天窗口 —— 挑天气好的那天走</h3>
+  <div class="ok">中秋放假 25 / 26 / 27 三天，<b>25 号和 26 号两个夜晚都能上山</b>，农历十六的月亮几乎一样圆。所以不用赌某一天。</div>
+  <table>
+    <tr><th style="width:34%">9/24 看到的预报</th><th style="width:22%">出发日</th><th>安排</th></tr>
+    <tr><td>25 晴、26 雨</td><td><b>9/25（五）</b></td><td>25 夜山上，26 上午收线返程</td></tr>
+    <tr><td>25 雨、26 晴</td><td><b>9/26（六）</b></td><td>26 夜山上（十六的月亮），27 上午收线返程</td></tr>
+    <tr><td>两天都好</td><td><b>9/25（五）</b></td><td>正日满月，且 27 号还能多休一天</td></tr>
+    <tr><td>两天都雨</td><td><b>改期</b></td><td>顺延下个周末，或等国庆</td></tr>
+  </table>
+  <div class="note"><b>决策截止：9/24 晚上。</b>留出一整天借 / 买睡袋。<b>装备策略：先借不买</b>——如果最终走 B 计划（民宿）就不用准备；确认走 A 计划（扎营）且借不到，再买（¥60–120，长期资产）。</div>
+
+  <h3>A 计划执行时才需要看：扎营位置</h3>
+  <table>
+    <tr><th style="width:30%">位置</th><th style="width:15%">结论</th><th>说明</th></tr>
+    <tr><td><b>补给点附近</b>（弄底上方，约 3.5km）</td><td style="color:var(--green)">✅ 主选</td><td>可买水、有简餐（黑山羊肉粉）、有山民在</td></tr>
+    <tr><td>村口 / 小卖部旁平地</td><td style="color:var(--green)">✅ B 计划</td><td>水最足、车在旁、不用重装爬升；中秋人多营地可能被占</td></tr>
+    <tr><td>最高山脊棱线</td><td style="color:var(--red)">❌ 避开</td><td>风大、雷击风险、离水源远</td></tr>
+  </table>
+  <div class="note"><b>关于水：</b>喀斯特地表存不住水，山上是<b>山民背上山的商品水</b>——有水，但预估 5–10 元/瓶、量有限、未必天天出摊。出发前致电村口小卖部确认"补给点开门吗、能不能扎营"。</div>
+</section>
+
+<section>
+  <h2>行程时间线 <small>9/25 出发 · 9/26 返程</small></h2>
+  <div class="ok">为什么选 25–26：<b>25 号中秋正日，满月在山上过；26 号下午回来，27 号还能在家休整一整天，28 号正常上课。</b>全程白天开车，没有夜路和凌晨出发。</div>
+  <div class="note"><b>下面按 A 计划（山上扎营）编排。</b>若 9/24 看天气改走 B 计划（住民宿），差异只有两处：D1 15:00 不进山、改为开车 1–1.5h 去七百弄入住；D2 06:00 从民宿开回戈见村、07:30 进山，其余不变。民宿就在七百弄，观景台反而更顺路。</div>
+
+  <div class="tl">
+    <div class="tl-day"><b>DAY 1</b><span>9月25日 · 周五 · 中秋 · 上山扎营</span></div>
+
+    <div class="item"><span class="t">11:30</span><span class="d">培贤 / 平果吃午饭</span><div class="m">吃饱再走，山上只有简餐</div></div>
+    <div class="item key"><span class="t">12:00</span><span class="d">培贤出发（唯一司机，全程白天驾驶）</span><div class="m">155km，S52平那 → G7522贵北 → S30贺西 → 百马互通下</div></div>
+    <div class="item"><span class="t">13:15</span><span class="d">都阳镇补给</span><div class="m">加油、买水、上厕所 —— 下高速后唯一补给门户</div></div>
+    <div class="item key"><span class="t">14:45</span><span class="d">抵戈见村，停车、找小卖部报备</span><div class="m">问三件事：补给点开不开、能不能扎营、今天上山多少人<span class="tag">关键</span></div></div>
+    <div class="item"><span class="t">15:00</span><span class="d">重装进山（前半段：龙头石 → 草甸垭口 → 补给点）</span><div class="m">约 2.5km / 爬升 300m / 重装 1.5–2h</div></div>
+    <div class="item hard"><span class="t">17:00</span><span class="d">抵达补给点，扎营</span><div class="m"><b>硬截止 17:30</b> —— 到不了就退回村口扎营，绝不摸黑找营地<span class="tag r">硬规则</span></div></div>
+    <div class="item"><span class="t">18:00</span><span class="d">晚餐（补给点简餐 / 自煮）</span><div class="m">在补给点消费，也是给山里人家的回报</div></div>
+    <div class="item key"><span class="t">19:00</span><span class="d">中秋满月升起 · 山脊赏月 + 星空</span><div class="m">八月十五正日，光污染极低，带三脚架出片<span class="tag">全程最高光</span></div></div>
+    <div class="item"><span class="t">22:00</span><span class="d">睡觉</span><div class="m">夜间 19–22℃，山脊风大 —— 睡袋必须到位（防潮垫已有），否则这晚会很难熬</div></div>
+
+    <div class="tl-day"><b>DAY 2</b><span>9月26日 · 周六 · 环线收尾 + 七百弄</span></div>
+
+    <div class="item"><span class="t">05:30</span><span class="d">起床</span><div class="m">日出约 6:25；雨后天晴的清晨是云海黄金窗口</div></div>
+    <div class="item"><span class="t">06:00</span><span class="d">早餐、拔营</span><div class="m">垃圾全部装袋带走，营地恢复原样</div></div>
+    <div class="item key"><span class="t">07:00</span><span class="d">轻装出发：山羊溶洞 → 弄中孤村 → 陡坡下撤</span><div class="m">3–3.5km 陡坡，半蹲下行、抓稳钢丝绳、用登山杖<span class="tag r">难点</span></div></div>
+    <div class="item"><span class="t">09:00</span><span class="d">重新爬升 → U 型月亮谷核心观景台</span><div class="m">全程最佳机位：峡谷 + 峰林 + 梯田 + 孤屋同框</div></div>
+    <div class="item"><span class="t">10:30</span><span class="d">沿牧羊古道下山</span><div class="m">约 1.5km 缓坡</div></div>
+    <div class="item key"><span class="t">11:00</span><span class="d">回到村口，上车、换干衣</span><div class="m">环线完成<span class="tag g">6km 达成</span></div></div>
+    <div class="item"><span class="t">12:00</span><span class="d">午餐（村里 / 都阳镇）</span><div class="m">瑶家土鸡、腊肉、玉米粥，人均 30–40。<b>唯一司机，这顿要吃饱、歇够</b></div></div>
+    <div class="item"><span class="t">13:00</span><span class="d">自驾前往七百弄千山万弄观景台</span><div class="m">约 1–1.5h 山路，盘山弯道多，慢行</div></div>
+    <div class="item key"><span class="t">14:30</span><span class="d">千山万弄观景台 + 地质博物馆</span><div class="m">俯瞰 3000+ 座峰丛；<b>门票 90，学生证 45</b> —— 带上学生证<span class="tag">加项</span></div></div>
+    <div class="item"><span class="t">16:00</span><span class="d">结束游览，开始返程</span><div class="m">观景台运营 8:30–17:30，别拖到关门</div></div>
+    <div class="item hard"><span class="t">17:30</span><span class="d">大化县城晚餐 + 休整（必停）</span><div class="m"><b>唯一司机强停点</b>：走完陡坡腿是软的，吃完饭眯 20 分钟再开<span class="tag r">防疲劳</span></div></div>
+    <div class="item"><span class="t">18:30</span><span class="d">继续返程培贤</span><div class="m">大化 → 平果约 106–125km，2–2.5h</div></div>
+    <div class="item"><span class="t">20:30–21:00</span><span class="d">抵达培贤</span><div class="m">比原方案晚约 5 小时，换来的七百弄峰丛全景</div></div>
+  </div>
+
+  <div class="note"><b>觉得赶就砍掉七百弄</b>：11:00 下山后直接返程，<b>15:30 就能到培贤</b>，D2 只开 3 小时。要省心选这个，要看景选加项——你拍板。</div>
+</section>
+
+<section>
+  <h2>唯一司机 · 疲劳管理</h2>
+  <ol class="check">
+    <li><b>D2 驾驶总量约 4–4.5h</b>（含 1–1.5h 山路 + 2–2.5h 高速），比不加七百弄多 1.5h。</li>
+    <li>走完 3–3.5km 陡坡下撤后大腿发软，<b>不要立刻上高速</b>——午餐 + 休整至少 1 小时。</li>
+    <li>17:30 大化县城那顿饭是<b>强制休息点</b>，困了就地睡 20 分钟，别硬撑。</li>
+    <li>车上备：功能性饮料 / 咖啡、薄荷糖、湿毛巾。</li>
+    <li>每 1–1.5h 进服务区活动 10 分钟。</li>
+    <li>山路会车多，<b>不赶时间、不抢道</b>，盘山公路限速低。</li>
+  </ol>
+</section>
+
+<section>
+  <h2>装备清单 <small>重装上山版</small></h2>
+  <div class="grid2">
+    <div class="card">
+      <h3 style="margin-top:0">徒步（已有）</h3>
+      <ul class="clean">
+        <li><b>防滑徒步鞋</b>（重中之重，泥土陡坡）</li>
+        <li><b>双登山杖</b> ✓ 已有</li>
+        <li><b>头灯 + 备用电池</b> ✓ 已有（每人一个）</li>
+        <li>30–45L 背包 + 防雨罩</li>
+        <li>速干衣裤、防晒衣、薄防风外套</li>
+        <li>遮阳帽、墨镜、手套、护膝</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">扎营（帐篷已有）</h3>
+      <ul class="clean">
+        <li><b>睡袋 / 厚被</b> <span style="color:var(--red)">✗ 唯一缺口</span></li>
+        <li><b>防潮垫 / 蛋巢垫</b> <span style="color:var(--green)">✓ 已有</span></li>
+        <li>帐篷（抗风，草地地钉需用石头加固）✓</li>
+        <li>营地灯（<b>禁止明火</b>，9 月草甸干燥）</li>
+        <li>水袋 / 水壶（先在补给点确认能买够）</li>
+        <li>垃圾袋、少量现金</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">补给</h3>
+      <ul class="clean">
+        <li>饮用水 2–3L/人（山上可补，但别赌）</li>
+        <li>电解质粉 / 盐丸</li>
+        <li>D1 晚餐 + D2 早餐 + 路餐（能量棒、面包、水果）</li>
+        <li>咸味零食（出汗补盐）</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">其他</h3>
+      <ul class="clean">
+        <li><b>两步路离线轨迹</b>（大部分区域无信号）</li>
+        <li>充电宝（无信号更耗电）</li>
+        <li>急救包：创可贴、云南白药、藿香正气水、肠胃药</li>
+        <li>一次性雨衣（不要伞）</li>
+        <li><b>学生证</b>（观景台半价）+ 身份证</li>
+        <li>单日户外保险（几块钱）</li>
+      </ul>
+    </div>
+  </div>
+  <div class="warn">不建议穿：拖鞋、凉鞋、帆布鞋、过长裙子（下坡绊倒风险）。</div>
+</section>
+
+<section>
+  <h2>安全硬规则</h2>
+  <ol class="check">
+    <li><b>结伴，禁止单人独行</b> —— 山谷多处无信号。</li>
+    <li><b>D1 17:30 硬截止到营地</b>，到不了就退回村口，绝不摸黑找营地。</li>
+    <li><b>陡坡段（3–3.5km）半蹲下行、禁止奔跑</b>，钢丝绳抓稳再踩，登山杖调短一档。</li>
+    <li>刚下过大雨 / 预报雷雨 → <b>取消或改村口扎营</b>。事故主因是泥土陡坡打滑。</li>
+    <li>营地避开最高山脊棱线（风大 + 雷击）；<b>禁止明火</b>。</li>
+    <li>全程无护栏，山脊边缘不靠近，<b>拍照不后退</b>。</li>
+    <li>中秋人多，<b>营地/停车可能被占</b>，B 计划是村口平地。</li>
+    <li>出发前把行程、车牌、预计下山时间发给一个不进山的人。</li>
+    <li>不踩庄稼、不赶羊群；在补给点消费；垃圾全部带走。</li>
+  </ol>
+</section>
+
+<section>
+  <h2>预算 <small>人均 · 加七百弄版</small></h2>
+  <table>
+    <tr><th style="width:24%">项目</th><th style="width:18%">经济</th><th style="width:18%">舒适</th><th>说明</th></tr>
+    <tr><td>交通（油 + 过路，4人分摊）</td><td>130</td><td>165</td><td><b>中秋高速不免费</b>；加了七百弄段约 +100km；2人一车此项 ×2</td></tr>
+    <tr><td>住宿</td><td>0</td><td>0</td><td>山上扎营（+20–50 场地/补给消费）</td></tr>
+    <tr><td><b>装备（睡袋）</b></td><td><b>0（借）</b></td><td><b>60–120</b></td><td>借到就是 0；防潮垫已有</td></tr>
+    <tr><td>餐饮</td><td>130</td><td>200</td><td>1 早 + 路餐 + 3 正（含大化县城那顿）</td></tr>
+    <tr><td>门票</td><td>45</td><td>90</td><td>千山万弄观景台 + 博物馆，<b>学生证 45</b></td></tr>
+    <tr><td>备用</td><td>30</td><td>80</td><td>水、气罐、药品</td></tr>
+    <tr><td><b>合计（4 人一车）</b></td><td><b>约 335</b></td><td><b>约 535–765</b></td><td>借到装备就是 335</td></tr>
+    <tr><td><b>合计（2 人一车）</b></td><td><b>约 465</b></td><td><b>约 665–895</b></td><td>交通翻倍</td></tr>
+  </table>
+  <div class="note">砍掉七百弄可省 45–90 元/人 + 1.5h，15:30 到家。</div>
+</section>
+
+<section>
+  <h2>行前检查清单 <small>按时间倒推</small></h2>
+  <ol class="check">
+    <li><b>出发前 7 天</b>：解决睡袋（借 / 买 / 改民宿），定下来</li>
+    <li><b>出发前 3 天</b>：查大化县逐时天气；有雨立刻启动 B 计划</li>
+    <li><b>出发前 2 天</b>：致电戈见村小卖部确认补给点营业 + 可扎营</li>
+    <li><b>出发前 1 天</b>：两步路下载小环线离线轨迹；车辆检查（胎压、油、刹车）；买保险</li>
+    <li><b>出发当天</b>：带学生证 + 身份证；把行程发给不进山的人</li>
+  </ol>
+</section>
+
+<footer>
+  以上行程与价格基于公开信息整理，出行前请以官方实时信息（景区公告、路况、天气、补给点营业情况）为准。
+</footer>
+
+</body>
+</html>
